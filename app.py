@@ -10,6 +10,7 @@ import requests
 import json
 from email.utils import formataddr
 import chardet 
+import ssl
 
 def read_csv_with_auto_encoding(file):
     # Đọc nội dung file
@@ -105,8 +106,11 @@ def main():
                         msg['Subject'] = title
                         msg.attach(MIMEText(populated_html_content, 'html'))
                         
+                        # Cấu hình SSL context với các tùy chọn an toàn
+                        context = ssl.create_default_context()
+            
                         # Tạo kết nối với server
-                        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+                        server = smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context, timeout=600)
                         server.login(sender_email, password)
                         server.sendmail(sender_email, row['メールアドレス'], msg.as_string())
                         server.quit()
