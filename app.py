@@ -96,7 +96,7 @@ def main():
                         # Tạo đối tượng MIME
                         msg = MIMEMultipart()
                         
-                        # Thay đổi ở đây: Kiểm tra nếu email là dtm_support@gmail.com, đặt tên người gửi là デトモ株式会社
+                        # Thay đổi ở đây: Kiểm tra nếu email là contact_dtm@detomo.co.jp, đặt tên người gửi là デトモ株式会社
                         if sender_email.lower() == "contact_dtm@detomo.co.jp":
                             msg['From'] = formataddr(("デトモ株式会社", sender_email))
                         else:
