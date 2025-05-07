@@ -8,6 +8,7 @@ from jinja2 import Template
 from streamlit_lottie import st_lottie
 import requests
 import json
+from email.utils import formataddr
 
 # Function to fetch Lottie animations from a URL
 def load_lottie_url(url):
@@ -60,7 +61,12 @@ def main():
 
                     # Tạo đối tượng MIME
                     msg = MIMEMultipart()
-                    msg['From'] = sender_email
+                    
+                    if sender_email.lower() == "contact_dtm@detomo.co.jp":
+                        msg['From'] = formataddr(("デトモ株式会社", sender_email))
+                    else:
+                        msg['From'] = sender_email
+                        
                     msg['To'] = row['メールアドレス']
                     msg['Subject'] = title
                     msg.attach(MIMEText(populated_html_content, 'html'))
